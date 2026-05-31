@@ -23,8 +23,9 @@ public interface ProjectRepository extends JpaRepository<Project, UUID>, JpaSpec
             WHERE (:status IS NULL OR p.status = :status)
               AND (:minBudget IS NULL OR p.budget >= :minBudget)
               AND (:maxBudget IS NULL OR p.budget <= :maxBudget)
-              AND (:keyword IS NULL OR LOWER(p.title) LIKE LOWER(CONCAT('%', :keyword, '%'))
-                                    OR LOWER(p.description) LIKE LOWER(CONCAT('%', :keyword, '%')))
+              AND (CAST(:keyword AS string) IS NULL
+                   OR LOWER(p.title) LIKE LOWER(CONCAT('%', CAST(:keyword AS string), '%'))
+                   OR LOWER(p.description) LIKE LOWER(CONCAT('%', CAST(:keyword AS string), '%')))
             ORDER BY p.createdAt DESC
             """)
     Page<Project> findWithFilters(

@@ -28,12 +28,14 @@ public class ProjectService {
     private final ProjectMapper projectMapper;
     private final UserService userService;
 
+    @Transactional(readOnly = true)
     public Page<ProjectResponse> findAll(ProjectStatus status, BigDecimal minBudget, BigDecimal maxBudget,
                                          String keyword, Pageable pageable) {
         return projectRepository.findWithFilters(status, minBudget, maxBudget, keyword, pageable)
                 .map(projectMapper::toResponse);
     }
 
+    @Transactional(readOnly = true)
     public ProjectResponse findById(UUID id) {
         return projectMapper.toResponse(findProjectById(id));
     }
