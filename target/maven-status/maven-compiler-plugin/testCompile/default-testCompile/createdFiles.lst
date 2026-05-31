@@ -1,0 +1,6 @@
+com\marketplace\reviews\ReviewServiceTest.class
+com\marketplace\proposals\ProposalServiceTest.class
+com\marketplace\contracts\ContractServiceTest.class
+com\marketplace\auth\AuthServiceTest.class
+com\marketplace\users\UserServiceTest.class
+com\marketplace\projects\ProjectServiceTest.class
