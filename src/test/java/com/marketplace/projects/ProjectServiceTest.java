@@ -61,7 +61,7 @@ class ProjectServiceTest {
         when(projectRepository.findById(project.getId())).thenReturn(Optional.of(project));
 
         var request = new ProjectRequest("Novo Título", "Nova descrição longa o suficiente",
-                new BigDecimal("2000"), LocalDate.now().plusDays(60));
+                new BigDecimal("2000"), LocalDate.now().plusDays(60), null);
 
         assertThrows(org.springframework.security.access.AccessDeniedException.class,
                 () -> projectService.update(project.getId(), request, "other@test.com"));
@@ -73,7 +73,7 @@ class ProjectServiceTest {
         when(projectRepository.findById(project.getId())).thenReturn(Optional.of(project));
 
         var request = new ProjectRequest("Novo Título", "Nova descrição longa o suficiente",
-                new BigDecimal("2000"), LocalDate.now().plusDays(60));
+                new BigDecimal("2000"), LocalDate.now().plusDays(60), null);
 
         assertThrows(BusinessRuleException.class,
                 () -> projectService.update(project.getId(), request, client.getEmail()));

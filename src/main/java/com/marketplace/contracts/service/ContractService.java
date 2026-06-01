@@ -41,6 +41,13 @@ public class ContractService {
     }
 
     @Transactional(readOnly = true)
+    public Page<ContractResponse> findCompletedByFreelancer(UUID freelancerId, Pageable pageable) {
+        return contractRepository.findByFreelancerIdAndStatus(
+                freelancerId, ContractStatus.FINISHED, pageable
+        ).map(contractMapper::toResponse);
+    }
+
+    @Transactional(readOnly = true)
     public ContractResponse findById(UUID id) {
         return contractMapper.toResponse(findContractById(id));
     }

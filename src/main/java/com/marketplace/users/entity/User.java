@@ -46,6 +46,26 @@ public class User implements UserDetails {
     @Column(length = 2000)
     private String bio;
 
+    private String title;
+
+    private String location;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Builder.Default
+    private Availability availability = Availability.AVAILABLE;
+
+    @Column(nullable = false)
+    @Builder.Default
+    private Boolean verified = false;
+
+    @Column(columnDefinition = "TEXT")
+    private String skills;
+
+    private String website;
+
+    private String linkedin;
+
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

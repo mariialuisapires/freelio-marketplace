@@ -1,5 +1,6 @@
 package com.marketplace.projects.entity;
 
+import com.marketplace.categories.entity.Category;
 import com.marketplace.users.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -48,4 +49,8 @@ public class Project {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     private User client;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 }

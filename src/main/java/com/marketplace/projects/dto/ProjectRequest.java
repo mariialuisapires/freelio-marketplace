@@ -4,6 +4,7 @@ import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.UUID;
 
 public record ProjectRequest(
         @NotBlank(message = "Título é obrigatório")
@@ -20,5 +21,7 @@ public record ProjectRequest(
 
         @NotNull(message = "Prazo é obrigatório")
         @Future(message = "Prazo deve ser uma data futura")
-        LocalDate deadline
+        LocalDate deadline,
+
+        UUID categoryId
 ) {}

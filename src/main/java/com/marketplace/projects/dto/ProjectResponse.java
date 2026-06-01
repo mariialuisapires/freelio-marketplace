@@ -16,5 +16,8 @@ public record ProjectResponse(
         LocalDate deadline,
         ProjectStatus status,
         LocalDateTime createdAt,
-        UserResponse client
+        UserResponse client,
+        UUID categoryId,
+        String categoryName,
+        String categoryIcon
 ) {}

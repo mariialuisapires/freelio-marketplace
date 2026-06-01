@@ -34,7 +34,10 @@ public class SecurityConfig {
             "/swagger-ui.html",
             "/api-docs/**",
             "/v3/api-docs/**",
-            "/ws/**"
+            "/ws/**",
+            "/uploads/**",
+            "/categories",
+            "/categories/**"
     };
 
     @Bean
@@ -44,6 +47,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(PUBLIC_PATHS).permitAll()
                         .requestMatchers(HttpMethod.GET, "/projects", "/projects/{id}").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/contracts/freelancer/*/completed").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

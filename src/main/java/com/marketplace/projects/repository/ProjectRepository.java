@@ -11,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @Repository
@@ -33,6 +34,17 @@ public interface ProjectRepository extends JpaRepository<Project, UUID>, JpaSpec
             @Param("minBudget") BigDecimal minBudget,
             @Param("maxBudget") BigDecimal maxBudget,
             @Param("keyword") String keyword,
+            Pageable pageable
+    );
+
+    @Query("""
+            SELECT p FROM Project p
+            WHERE p.status = com.marketplace.projects.entity.ProjectStatus.OPEN
+              AND p.category.id IN :categoryIds
+            ORDER BY p.createdAt DESC
+            """)
+    Page<Project> findByCategoryIds(
+            @Param("categoryIds") List<UUID> categoryIds,
             Pageable pageable
     );
 }

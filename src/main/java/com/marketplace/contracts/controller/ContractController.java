@@ -36,6 +36,15 @@ public class ContractController {
         return ResponseEntity.ok(contractService.findAll(currentUser.getUsername(), pageable));
     }
 
+    @GetMapping("/freelancer/{freelancerId}/completed")
+    @Operation(summary = "Listar projetos concluídos de um freelancer (público)")
+    public ResponseEntity<Page<ContractResponse>> findCompletedByFreelancer(
+            @PathVariable UUID freelancerId,
+            @PageableDefault(size = 12) Pageable pageable
+    ) {
+        return ResponseEntity.ok(contractService.findCompletedByFreelancer(freelancerId, pageable));
+    }
+
     @GetMapping("/{id}")
     @Operation(summary = "Buscar contrato por ID")
     public ResponseEntity<ContractResponse> findById(@PathVariable UUID id) {

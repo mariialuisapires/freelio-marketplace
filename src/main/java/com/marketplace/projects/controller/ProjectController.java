@@ -20,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -41,6 +42,15 @@ public class ProjectController {
             @PageableDefault(size = 20) Pageable pageable
     ) {
         return ResponseEntity.ok(projectService.findAll(status, minBudget, maxBudget, keyword, pageable));
+    }
+
+    @GetMapping("/by-categories")
+    @Operation(summary = "Listar projetos por categorias do freelancer")
+    public ResponseEntity<Page<ProjectResponse>> findByCategories(
+            @RequestParam(required = false) List<UUID> categoryIds,
+            @PageableDefault(size = 20) Pageable pageable
+    ) {
+        return ResponseEntity.ok(projectService.findByCategories(categoryIds, pageable));
     }
 
     @GetMapping("/{id}")

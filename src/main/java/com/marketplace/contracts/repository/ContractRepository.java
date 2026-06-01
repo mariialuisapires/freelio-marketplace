@@ -17,4 +17,10 @@ public interface ContractRepository extends JpaRepository<Contract, UUID> {
     Page<Contract> findByUserId(@Param("userId") UUID userId, Pageable pageable);
 
     Page<Contract> findByFreelancerId(UUID freelancerId, Pageable pageable);
+
+    Page<Contract> findByFreelancerIdAndStatus(
+            UUID freelancerId,
+            com.marketplace.contracts.entity.ContractStatus status,
+            Pageable pageable
+    );
 }

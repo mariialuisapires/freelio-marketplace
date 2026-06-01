@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2026-05-31T13:30:08-0300",
+    date = "2026-05-31T21:20:24-0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 22.0.2 (Oracle Corporation)"
 )
 @Component
@@ -24,21 +24,25 @@ public class MessageMapperImpl implements MessageMapper {
 
         UUID senderId = null;
         String senderName = null;
+        String senderPhotoUrl = null;
         UUID receiverId = null;
         String receiverName = null;
+        String receiverPhotoUrl = null;
         UUID id = null;
         String content = null;
         LocalDateTime sentAt = null;
 
         senderId = messageSenderId( message );
         senderName = messageSenderName( message );
+        senderPhotoUrl = messageSenderPhotoUrl( message );
         receiverId = messageReceiverId( message );
         receiverName = messageReceiverName( message );
+        receiverPhotoUrl = messageReceiverPhotoUrl( message );
         id = message.getId();
         content = message.getContent();
         sentAt = message.getSentAt();
 
-        MessageResponse messageResponse = new MessageResponse( id, senderId, senderName, receiverId, receiverName, content, sentAt );
+        MessageResponse messageResponse = new MessageResponse( id, senderId, senderName, senderPhotoUrl, receiverId, receiverName, receiverPhotoUrl, content, sentAt );
 
         return messageResponse;
     }
@@ -73,6 +77,21 @@ public class MessageMapperImpl implements MessageMapper {
         return name;
     }
 
+    private String messageSenderPhotoUrl(Message message) {
+        if ( message == null ) {
+            return null;
+        }
+        User sender = message.getSender();
+        if ( sender == null ) {
+            return null;
+        }
+        String photoUrl = sender.getPhotoUrl();
+        if ( photoUrl == null ) {
+            return null;
+        }
+        return photoUrl;
+    }
+
     private UUID messageReceiverId(Message message) {
         if ( message == null ) {
             return null;
@@ -101,5 +120,20 @@ public class MessageMapperImpl implements MessageMapper {
             return null;
         }
         return name;
+    }
+
+    private String messageReceiverPhotoUrl(Message message) {
+        if ( message == null ) {
+            return null;
+        }
+        User receiver = message.getReceiver();
+        if ( receiver == null ) {
+            return null;
+        }
+        String photoUrl = receiver.getPhotoUrl();
+        if ( photoUrl == null ) {
+            return null;
+        }
+        return photoUrl;
     }
 }
